@@ -1,36 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+
     <meta name="google-site-verification" content="OBk_iMsZeO44wHNHEuer1XqZnWOAWIVRZO9xKrK3gRA" />
-    <title>Compress Photo MB to KB Online Free | HalkaPic</title>
-    <meta
-      name="description"
-      content="Compress JPG, JPEG, PNG and WebP photos from MB to KB online with HalkaPic. Fast, simple and privacy-friendly image compression."
-    />
-    <meta name="keywords" content="photo mb to kb, image compressor, compress image to 100kb, compress image to 50kb, compress image to 20kb, reduce photo size, jpg compressor, halkapic" />
+
+    <title>HalkaPic - Compress Photo MB to KB Online Free & Image to PDF</title>
+
+    <meta name="description" content="HalkaPic is a free, fast and private online tool to compress photos from MB to KB (20KB, 50KB, 100KB) and convert images to PDF. Works on mobile and desktop without server uploads." />
+    <meta name="keywords" content="halkapic, halka pic, photo MB to KB, image compressor, compress image to 100KB, compress image to 50KB, compress image to 20KB, JPG compressor, image to PDF, free image compressor" />
     <meta name="author" content="HalkaPic" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <meta name="theme-color" content="#2563eb" />
-    
-    <!-- Open Graph / Facebook -->
+
+    <link rel="canonical" href="https://halka-pic.vercel.app/" />
+
+    <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Compress Photo MB to KB Online Free | HalkaPic" />
-    <meta property="og:description" content="Reduce image size quickly while keeping the best possible visual quality. Free, fast and private in-browser compression." />
-    
+    <meta property="og:url" content="https://halka-pic.vercel.app/" />
+    <meta property="og:site_name" content="HalkaPic" />
+    <meta property="og:title" content="HalkaPic - Compress Photo MB to KB Online Free & Image to PDF" />
+    <meta property="og:description" content="Reduce image file size quickly while preserving visual quality. Free, fast and private in-browser photo compression and PDF conversion." />
+    <meta property="og:image" content="https://halka-pic.vercel.app/icon.svg" />
+
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Compress Photo MB to KB Online Free | HalkaPic" />
-    <meta name="twitter:description" content="Reduce image size quickly while keeping the best possible visual quality. Free, fast and private in-browser compression." />
+    <meta name="twitter:url" content="https://halka-pic.vercel.app/" />
+    <meta name="twitter:title" content="HalkaPic - Compress Photo MB to KB Online Free & Image to PDF" />
+    <meta name="twitter:description" content="Compress photos from MB to KB and convert images to PDF with HalkaPic. Free, fast and private." />
+    <meta name="twitter:image" content="https://halka-pic.vercel.app/icon.svg" />
 
-    <!-- Favicon: Photo icon with downward arrow -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563eb' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><rect width='18' height='18' x='3' y='3' rx='2' ry='2'/><circle cx='9' cy='9' r='2'/><path d='m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21'/><path d='M12 7v6m-3-3 3 3 3-3' stroke='%2310b981' stroke-width='2.5'/></svg>" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-  </head>
-  <body class="bg-slate-50 text-slate-900 antialiased font-sans selection:bg-blue-100 selection:text-blue-900 min-h-screen flex flex-col">
+    <!-- Icons and Manifest -->
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <link rel="apple-touch-icon" href="/icon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@graph": [{
+                "@type": "WebSite",
+                "@id": "https://halka-pic.vercel.app/#website",
+                "url": "https://halka-pic.vercel.app/",
+                "name": "HalkaPic",
+                "alternateName": [
+                    "Halka Pic",
+                    "HalkaPic Image Compressor",
+                    "HalkaPic PDF"
+                ],
+                "description": "A free online image compressor and image-to-PDF converter."
+            }, {
+                "@type": "WebApplication",
+                "@id": "https://halka-pic.vercel.app/#webapp",
+                "name": "HalkaPic",
+                "url": "https://halka-pic.vercel.app/",
+                "applicationCategory": "MultimediaApplication",
+                "operatingSystem": "Any",
+                "browserRequirements": "Requires JavaScript and HTML5 Canvas.",
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                },
+                "featureList": [
+                    "Compress photos from MB to KB",
+                    "Convert images to PDF",
+                    "Process images in the browser"
+                ]
+            }, {
+                "@type": "Organization",
+                "@id": "https://halka-pic.vercel.app/#organization",
+                "name": "HalkaPic",
+                "url": "https://halka-pic.vercel.app/",
+                "logo": "https://halka-pic.vercel.app/icon.svg"
+            }]
+        }
+    </script>
+</head>
+
+<body class="bg-slate-50 text-slate-900 antialiased font-sans selection:bg-blue-100 selection:text-blue-900 min-h-screen flex flex-col">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
-  </body>
+</body>
+
 </html>

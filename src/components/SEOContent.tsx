@@ -4,8 +4,16 @@ import { HelpCircle, Check, Shield, Zap, Sparkles, ChevronDown } from 'lucide-re
 export const SEOContent: React.FC = () => {
   const faqs = [
     {
+      q: 'What is HalkaPic?',
+      a: 'HalkaPic is a 100% free, private online image utility designed to compress photos from MB to KB (such as 20KB, 50KB, 100KB, 200KB, 500KB) and convert multiple images into clean PDF documents directly inside your browser without uploading files to any external server.',
+    },
+    {
       q: 'How do I compress a photo from MB to KB without losing quality?',
       a: 'HalkaPic uses a smart iterative compression algorithm. Instead of blindly lowering resolution, it evaluates JPEG and WebP quantization matrices on your browser canvas. It searches for the highest visual clarity that stays strictly under your target KB (e.g. 100 KB, 50 KB, or 20 KB).',
+    },
+    {
+      q: 'How do I convert images into a PDF on HalkaPic?',
+      a: 'Simply switch to the "Image to PDF" tool, select multiple JPG, PNG, or WebP photos, arrange them into your preferred order using the Move Up/Down buttons, select your preferred layout (A4 Standard or Fit-to-Image), and click "Convert to PDF" to download your combined document immediately.',
     },
     {
       q: 'Is it safe to compress confidential ID photos and passport documents?',
@@ -32,10 +40,10 @@ export const SEOContent: React.FC = () => {
         <div className="space-y-6">
           <div className="space-y-2">
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">
-              Smart In-Browser Photo Compression: MB to KB
+              HalkaPic: Smart In-Browser Photo Compression & PDF Creation
             </h2>
             <p className="text-slate-600 text-sm sm:text-base leading-relaxed">
-              Modern smartphone cameras capture stunning detail, but high-resolution photos often weigh 3 MB to 15 MB. When you need to upload a photo to an exam registration portal, email an attachment, or speed up your website, large files get rejected.
+              Modern smartphone cameras capture stunning detail, but high-resolution photos often weigh 3 MB to 15 MB. When you need to upload a photo to an exam registration portal, email an attachment, or speed up your website, large files get rejected. HalkaPic delivers instant, privacy-first compression and image-to-PDF conversion with zero software installation.
             </p>
           </div>
 
@@ -64,10 +72,10 @@ export const SEOContent: React.FC = () => {
             <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200/90 space-y-1.5">
               <h3 className="font-bold text-slate-900 text-sm flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-indigo-600"></span>
-                <span>JPG & PNG Optimization</span>
+                <span>Image to PDF Converter</span>
               </h3>
               <p className="text-xs text-slate-500 leading-relaxed">
-                High-efficiency canvas scaling without artifact banding or unwanted black background glitches.
+                Merge multiple JPG, PNG, and WebP images into one organized A4 or Fit-to-Image PDF document.
               </p>
             </div>
           </div>
@@ -77,10 +85,10 @@ export const SEOContent: React.FC = () => {
         <div className="space-y-6 pt-4 border-t border-slate-100">
           <div className="space-y-1">
             <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
-              Frequently Asked Questions
+              Frequently Asked Questions About HalkaPic
             </h2>
             <p className="text-xs sm:text-sm text-slate-500">
-              Everything you need to know about photo compression with HalkaPic.
+              Everything you need to know about photo compression and PDF tools with HalkaPic.
             </p>
           </div>
 
