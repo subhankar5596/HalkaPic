@@ -1,31 +1,55 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect, Suspense, lazy } from 'react';
 import { Header } from './components/Header';
 import { Uploader } from './components/Uploader';
 import { ImageDetails } from './components/ImageDetails';
 import { TargetSelector } from './components/TargetSelector';
 import { CompressProgress } from './components/CompressProgress';
 import { ResultCard } from './components/ResultCard';
-import { ImageToPdfConverter } from './components/ImageToPdfConverter';
 import { HowItWorks } from './components/HowItWorks';
 import { ToolsDirectory } from './components/ToolsDirectory';
 import { PrivacyModal } from './components/PrivacyModal';
-import { SEOContent } from './components/SEOContent';
 import { Footer } from './components/Footer';
+import { ToolPageLayout } from './components/ToolPageLayout';
+import { ToolId, TOOLS_DATA } from './types/tools';
+import { getCurrentToolFromUrl, navigateToTool, updatePageMeta } from './utils/router';
 import {
   UploadedImageInfo,
   CompressionProgressState,
   CompressionResult,
 } from './types';
 import { compressImage } from './utils/imageCompressor';
-import { Zap, AlertCircle, FileText, Minimize2 } from 'lucide-react';
+import { Zap, AlertCircle, Loader2 } from 'lucide-react';
+
+// Code-split / Lazy load secondary tools so PDF libraries do not slow down initial homepage load
+const ImageToPdfConverter = lazy(() =>
+  import('./components/ImageToPdfConverter').then((m) => ({ default: m.ImageToPdfConverter }))
+);
+const SignatureResizer = lazy(() =>
+  import('./components/SignatureResizer').then((m) => ({ default: m.SignatureResizer }))
+);
+const PassportPhotoMaker = lazy(() =>
+  import('./components/PassportPhotoMaker').then((m) => ({ default: m.PassportPhotoMaker }))
+);
+const CompressPdf = lazy(() =>
+  import('./components/CompressPdf').then((m) => ({ default: m.CompressPdf }))
+);
+const PdfToJpg = lazy(() =>
+  import('./components/PdfToJpg').then((m) => ({ default: m.PdfToJpg }))
+);
+const MergePdf = lazy(() =>
+  import('./components/MergePdf').then((m) => ({ default: m.MergePdf }))
+);
+const SplitPdf = lazy(() =>
+  import('./components/SplitPdf').then((m) => ({ default: m.SplitPdf }))
+);
 
 export const App: React.FC = () => {
-  // Navigation / Tool State
-  const [currentTool, setCurrentTool] = useState<'compressor' | 'image-to-pdf'>('compressor');
+  // Navigation / Tool Routing State
+  const [currentTool, setCurrentTool] = useState<ToolId>(() => getCurrentToolFromUrl());
 
   // Compressor Application State
   const [selectedImage, setSelectedImage] = useState<UploadedImageInfo | null>(null);
-  const [targetKB, setTargetKB] = useState<number>(50); // Default to popular 50 KB
+  const [targetKB, setTargetKB] = useState<number>(50);
   const [isCompressing, setIsCompressing] = useState<boolean>(false);
   const [progressState, setProgressState] = useState<CompressionProgressState>({
     isCompressing: false,
@@ -39,14 +63,30 @@ export const App: React.FC = () => {
 
   const heroSectionRef = useRef<HTMLDivElement>(null);
 
+  // Sync route on popstate (browser back/forward) & custom route changes
+  useEffect(() => {
+    const handleLocationChange = () => {
+      const tool = getCurrentToolFromUrl();
+      setCurrentTool(tool);
+      updatePageMeta(tool);
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('halkapic-route-change', handleLocationChange);
+
+    // Initial meta update
+    updatePageMeta(currentTool);
+
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('halkapic-route-change', handleLocationChange);
+    };
+  }, [currentTool]);
+
   // Handle image selected from uploader or paste
   const handleImageSelected = (info: UploadedImageInfo) => {
-    if (selectedImage?.objectUrl) {
-      URL.revokeObjectURL(selectedImage.objectUrl);
-    }
-    if (compressionResult?.objectUrl) {
-      URL.revokeObjectURL(compressionResult.objectUrl);
-    }
+    if (selectedImage?.objectUrl) URL.revokeObjectURL(selectedImage.objectUrl);
+    if (compressionResult?.objectUrl) URL.revokeObjectURL(compressionResult.objectUrl);
 
     setSelectedImage(info);
     setCompressionResult(null);
@@ -100,12 +140,8 @@ export const App: React.FC = () => {
 
   // Reset to compress another image
   const handleCompressAnother = () => {
-    if (selectedImage?.objectUrl) {
-      URL.revokeObjectURL(selectedImage.objectUrl);
-    }
-    if (compressionResult?.objectUrl) {
-      URL.revokeObjectURL(compressionResult.objectUrl);
-    }
+    if (selectedImage?.objectUrl) URL.revokeObjectURL(selectedImage.objectUrl);
+    if (compressionResult?.objectUrl) URL.revokeObjectURL(compressionResult.objectUrl);
     setSelectedImage(null);
     setCompressionResult(null);
     setErrorMessage(null);
@@ -123,114 +159,31 @@ export const App: React.FC = () => {
     }
   };
 
-  const handleSelectTool = (toolId: string) => {
-    if (toolId === 'image-to-pdf') {
-      setCurrentTool('image-to-pdf');
-    } else {
-      setCurrentTool('compressor');
-    }
-    scrollToHero();
+  const handleSelectTool = (toolId: ToolId) => {
+    navigateToTool(toolId);
   };
 
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900">
       {/* Navigation Header */}
       <Header
-        currentTool={currentTool}
-        onSelectTool={(tool) => {
-          setCurrentTool(tool);
-          scrollToHero();
-        }}
+        currentToolId={currentTool}
+        onSelectTool={handleSelectTool}
         onOpenPrivacy={() => setIsPrivacyOpen(true)}
         onOpenHowItWorks={scrollToHowItWorks}
       />
 
       {/* Main Content Area */}
       <main className="flex-1">
-        {/* Hero Section & Main Interactive Tool Root */}
         <section
           ref={heroSectionRef}
           id="tool-root"
           className="pt-8 sm:pt-12 pb-12 sm:pb-16 px-4 sm:px-6"
         >
-          <div className="max-w-3xl mx-auto space-y-6 sm:space-y-8">
-            {/* Quick Tool Switcher Pills */}
-            <div className="flex justify-center">
-              <div className="inline-flex items-center p-1 bg-white rounded-2xl border border-slate-200/90 shadow-xs">
-                <button
-                  type="button"
-                  onClick={() => setCurrentTool('compressor')}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                    currentTool === 'compressor'
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                  }`}
-                >
-                  <Minimize2 className="w-4 h-4" />
-                  <span>Compress Photo MB to KB</span>
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setCurrentTool('image-to-pdf')}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer ${
-                    currentTool === 'image-to-pdf'
-                      ? 'bg-blue-600 text-white shadow-sm'
-                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                  }`}
-                >
-                  <FileText className="w-4 h-4" />
-                  <span>Image to PDF</span>
-                  <span className={`text-[9px] font-extrabold px-1.5 py-0.2 rounded uppercase ${
-                    currentTool === 'image-to-pdf'
-                      ? 'bg-white/20 text-white'
-                      : 'bg-emerald-100 text-emerald-800'
-                  }`}>
-                    New
-                  </span>
-                </button>
-              </div>
-            </div>
-
-            {/* Main Headline & Subheading based on selected tool */}
-            {currentTool === 'compressor' ? (
-              <div className="text-center space-y-3 animate-in fade-in">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 text-blue-700 text-xs sm:text-sm font-bold border border-blue-200/60 shadow-xs">
-                  <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                  <span>Free • Fast • 100% Private</span>
-                </div>
-
-                <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-                  Compress Photo <span className="text-blue-600">MB to KB</span>
-                </h1>
-
-                <p className="text-base sm:text-lg text-slate-600 max-w-xl mx-auto leading-relaxed">
-                  Reduce image size quickly while keeping the best possible quality. Free, fast and private.
-                </p>
-              </div>
-            ) : (
-              <div className="text-center space-y-3 animate-in fade-in">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-50 text-emerald-700 text-xs sm:text-sm font-bold border border-emerald-200/60 shadow-xs">
-                  <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse"></span>
-                  <span>Multiple Photos • A4 & Fit • 100% In-Browser</span>
-                </div>
-
-                <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-                  Convert Image <span className="text-blue-600">to PDF</span>
-                </h1>
-
-                <p className="text-base sm:text-lg text-slate-600 max-w-xl mx-auto leading-relaxed">
-                  Merge multiple JPG, PNG, or WebP photos into one clean PDF document. Arrange pages, pick A4 or Fit-to-Image, and download instantly.
-                </p>
-              </div>
-            )}
-
-            {/* Interactive Tool Area */}
-            {currentTool === 'image-to-pdf' ? (
-              <ImageToPdfConverter />
-            ) : (
+          <ToolPageLayout toolId={currentTool}>
+            {/* Render Active Tool */}
+            {currentTool === 'compress-photo' && (
               <div className="space-y-4 animate-in fade-in">
-                {/* Error Notification Banner */}
                 {errorMessage && (
                   <div
                     role="alert"
@@ -240,7 +193,7 @@ export const App: React.FC = () => {
                     <div className="flex-1 font-medium">{errorMessage}</div>
                     <button
                       onClick={() => setErrorMessage(null)}
-                      className="text-red-500 hover:text-red-700 font-bold text-xs"
+                      className="text-red-500 hover:text-red-700 font-bold text-xs cursor-pointer"
                     >
                       Dismiss
                     </button>
@@ -248,20 +201,17 @@ export const App: React.FC = () => {
                 )}
 
                 {!selectedImage ? (
-                  /* Step 1: Upload Zone */
                   <Uploader
                     onImageSelected={handleImageSelected}
                     onError={(err) => setErrorMessage(err)}
                   />
                 ) : compressionResult ? (
-                  /* Step 3: Compression Result Card */
                   <ResultCard
                     originalImage={selectedImage}
                     result={compressionResult}
                     onCompressAnother={handleCompressAnother}
                   />
                 ) : (
-                  /* Step 2: Configure & Compress */
                   <div className="space-y-4 animate-in fade-in duration-200">
                     <ImageDetails
                       imageInfo={selectedImage}
@@ -293,20 +243,36 @@ export const App: React.FC = () => {
                 )}
               </div>
             )}
-          </div>
+
+            {currentTool !== 'compress-photo' && (
+              <Suspense
+                fallback={
+                  <div className="flex flex-col items-center justify-center py-20 space-y-3 bg-white rounded-3xl border border-slate-200">
+                    <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+                    <span className="text-sm font-semibold text-slate-600">Loading {TOOLS_DATA[currentTool]?.name || 'tool'}...</span>
+                  </div>
+                }
+              >
+                {currentTool === 'image-to-pdf' && <ImageToPdfConverter />}
+                {currentTool === 'signature-resizer' && <SignatureResizer />}
+                {currentTool === 'passport-photo-maker' && <PassportPhotoMaker />}
+                {currentTool === 'compress-pdf' && <CompressPdf />}
+                {currentTool === 'pdf-to-jpg' && <PdfToJpg />}
+                {currentTool === 'merge-pdf' && <MergePdf />}
+                {currentTool === 'split-pdf' && <SplitPdf />}
+              </Suspense>
+            )}
+          </ToolPageLayout>
         </section>
 
-        {/* How HalkaPic Works Section */}
+        {/* Global Overview Section */}
         <HowItWorks />
 
-        {/* Extensible Ecosystem / Directory with Active Image to PDF tool */}
+        {/* Full Ecosystem Tool Directory (All 8 Tools) */}
         <ToolsDirectory
-          activeToolId={currentTool === 'compressor' ? 'compress-photo' : 'image-to-pdf'}
+          activeToolId={currentTool}
           onSelectTool={handleSelectTool}
         />
-
-        {/* SEO Knowledge & FAQs */}
-        <SEOContent />
       </main>
 
       {/* Privacy Guarantee Modal */}

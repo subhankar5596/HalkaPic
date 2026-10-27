@@ -1,9 +1,0 @@
-
-# Robots.txt for HalkaPic
-# https://halka-pic.vercel.app/
-
-User-agent: *
-Allow: /
-
-# Sitemap
-Sitemap: https://halka-pic.vercel.app/sitemap.xml

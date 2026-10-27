@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Production build output
+dist/
+dist-ssr/
+
+# Local env files
+.env
+.env.local
+.env.*.local
+
+# Vite / build cache
+.vite/
+*.tsbuildinfo
+
+# Browser test profiles & logs
+.chrome-*/
+*.log
+
+# Editor & OS files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
