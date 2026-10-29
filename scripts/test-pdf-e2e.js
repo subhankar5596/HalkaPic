@@ -143,6 +143,7 @@ async function runPdfTests() {
 
     // 2. Upload multiple images
     console.log('\n--- Uploading 3 images ---');
+    await page.waitForSelector('#halkapic-pdf-input', { timeout: 10000 });
     const fileInput = await page.$('#halkapic-pdf-input');
     await fileInput.uploadFile(...samplePaths);
 

@@ -173,7 +173,7 @@ export const Uploader: React.FC<UploaderProps> = ({
           </div>
 
           {/* Keyboard / clipboard tip */}
-          <p className="text-[11px] text-slate-400">
+          <p className="text-[11px] text-slate-500">
             Tip: You can also paste an image with <kbd className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[10px]">Ctrl+V</kbd> or <kbd className="px-1.5 py-0.5 rounded bg-slate-100 border border-slate-200 text-slate-600 font-mono text-[10px]">⌘+V</kbd>
           </p>
         </div>

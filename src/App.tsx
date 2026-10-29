@@ -4,10 +4,7 @@ import { Uploader } from './components/Uploader';
 import { ImageDetails } from './components/ImageDetails';
 import { TargetSelector } from './components/TargetSelector';
 import { CompressProgress } from './components/CompressProgress';
-import { ResultCard } from './components/ResultCard';
 import { HowItWorks } from './components/HowItWorks';
-import { ToolsDirectory } from './components/ToolsDirectory';
-import { PrivacyModal } from './components/PrivacyModal';
 import { Footer } from './components/Footer';
 import { ToolPageLayout } from './components/ToolPageLayout';
 import { ToolId, TOOLS_DATA } from './types/tools';
@@ -19,6 +16,17 @@ import {
 } from './types';
 import { compressImage } from './utils/imageCompressor';
 import { Zap, AlertCircle, Loader2 } from 'lucide-react';
+
+// Code-split / Lazy load components not required on initial homepage paint
+const ResultCard = lazy(() =>
+  import('./components/ResultCard').then((m) => ({ default: m.ResultCard }))
+);
+const ToolsDirectory = lazy(() =>
+  import('./components/ToolsDirectory').then((m) => ({ default: m.ToolsDirectory }))
+);
+const PrivacyModal = lazy(() =>
+  import('./components/PrivacyModal').then((m) => ({ default: m.PrivacyModal }))
+);
 
 // Code-split / Lazy load secondary tools so PDF libraries do not slow down initial homepage load
 const ImageToPdfConverter = lazy(() =>
@@ -206,11 +214,18 @@ export const App: React.FC = () => {
                     onError={(err) => setErrorMessage(err)}
                   />
                 ) : compressionResult ? (
-                  <ResultCard
-                    originalImage={selectedImage}
-                    result={compressionResult}
-                    onCompressAnother={handleCompressAnother}
-                  />
+                  <Suspense fallback={
+                    <div className="flex flex-col items-center justify-center py-16 space-y-3 bg-white rounded-3xl border border-slate-200 shadow-sm">
+                      <Loader2 className="w-8 h-8 text-blue-600 animate-spin" />
+                      <span className="text-sm font-semibold text-slate-600">Preparing compressed image...</span>
+                    </div>
+                  }>
+                    <ResultCard
+                      originalImage={selectedImage}
+                      result={compressionResult}
+                      onCompressAnother={handleCompressAnother}
+                    />
+                  </Suspense>
                 ) : (
                   <div className="space-y-4 animate-in fade-in duration-200">
                     <ImageDetails
@@ -269,17 +284,23 @@ export const App: React.FC = () => {
         <HowItWorks />
 
         {/* Full Ecosystem Tool Directory (All 8 Tools) */}
-        <ToolsDirectory
-          activeToolId={currentTool}
-          onSelectTool={handleSelectTool}
-        />
+        <Suspense fallback={<div className="py-12 text-center text-slate-400 text-sm">Loading tools directory...</div>}>
+          <ToolsDirectory
+            activeToolId={currentTool}
+            onSelectTool={handleSelectTool}
+          />
+        </Suspense>
       </main>
 
       {/* Privacy Guarantee Modal */}
-      <PrivacyModal
-        isOpen={isPrivacyOpen}
-        onClose={() => setIsPrivacyOpen(false)}
-      />
+      {isPrivacyOpen && (
+        <Suspense fallback={null}>
+          <PrivacyModal
+            isOpen={isPrivacyOpen}
+            onClose={() => setIsPrivacyOpen(false)}
+          />
+        </Suspense>
+      )}
 
       {/* Global Footer */}
       <Footer

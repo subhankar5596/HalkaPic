@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 
     <meta name="google-site-verification" content="OBk_iMsZeO44wHNHEuer1XqZnWOAWIVRZO9xKrK3gRA" />
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4877351388361194" crossorigin="anonymous"></script>
 
     <title>HalkaPic - Compress Photo MB to KB Online Free & Image to PDF</title>
 
@@ -38,10 +37,14 @@
     <link rel="apple-touch-icon" href="/icon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- Typography -->
+    <!-- Typography (Non-render-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet" />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" media="print" onload="this.media='all'" />
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" />
+    </noscript>
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -84,6 +87,26 @@
                 "logo": "https://halka-pic.vercel.app/icon.svg"
             }]
         }
+    </script>
+
+    <!-- Non-critical Third-party Scripts: Load AdSense on real user interaction (bypassed on localhost/tests) -->
+    <script>
+        (function() {
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') return;
+            var loaded = false;
+            function initAds() {
+                if (loaded) return;
+                loaded = true;
+                var script = document.createElement('script');
+                script.async = true;
+                script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4877351388361194';
+                script.crossOrigin = 'anonymous';
+                document.head.appendChild(script);
+            }
+            ['touchstart', 'scroll', 'pointerdown', 'keydown'].forEach(function(evt) {
+                window.addEventListener(evt, initAds, { once: true, passive: true });
+            });
+        })();
     </script>
 </head>
 
