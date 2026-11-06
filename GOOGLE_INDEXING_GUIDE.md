@@ -14,7 +14,7 @@ Your HalkaPic project is already configured with the essential technical SEO req
    - `WebApplication` Schema (tells Google HalkaPic is a free, high-performance multimedia web tool).
    - `Organization` Schema (defines the brand entity and logo).
    - `FAQPage` Schema (triggers Google Rich Snippet dropdowns directly under your search result).
-4. **Canonical URL**: `<link rel="canonical" href="https://halkapic.com/" />` prevents duplicate content issues.
+4. **Canonical URL**: `<link rel="canonical" href="https://halka-pic.vercel.app/" />` prevents duplicate content issues.
 5. **OpenGraph & Twitter Card Tags**: Ensures rich previews on social media, WhatsApp, LinkedIn, and Twitter.
 6. **Web App Manifest** (`/site.webmanifest`): Recognizes HalkaPic as a modern, installable PWA.
 

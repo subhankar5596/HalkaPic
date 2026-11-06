@@ -74,8 +74,16 @@ export function updatePageMeta(toolId: ToolId) {
     canonical.setAttribute('rel', 'canonical');
     document.head.appendChild(canonical);
   }
-  const cleanPath = data.path === '/' ? '' : data.path;
-  canonical.setAttribute('href', `https://halkapic.com${cleanPath}`);
+  const cleanPath = data.path === '/' ? '/' : data.path;
+  const canonicalUrl = `https://halka-pic.vercel.app${cleanPath}`;
+  canonical.setAttribute('href', canonicalUrl);
+
+  // Update og:url & twitter:url
+  const ogUrl = document.querySelector('meta[property="og:url"]');
+  if (ogUrl) ogUrl.setAttribute('content', canonicalUrl);
+
+  const twitterUrl = document.querySelector('meta[name="twitter:url"]');
+  if (twitterUrl) twitterUrl.setAttribute('content', canonicalUrl);
 }
 
 export function navigateToTool(toolId: ToolId) {
