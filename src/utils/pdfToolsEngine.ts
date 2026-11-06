@@ -84,6 +84,7 @@ export async function renderPdfToJpgs(
       canvasContext: ctx,
       viewport,
       background: 'white',
+      canvas,
     }).promise;
 
     const blob: Blob = await new Promise((resolve, reject) => {
@@ -340,6 +341,7 @@ export async function compressPdfFile(
       canvasContext: ctx,
       viewport,
       background: 'white',
+      canvas,
     }).promise;
 
     const dataUrl = canvas.toDataURL('image/jpeg', quality);

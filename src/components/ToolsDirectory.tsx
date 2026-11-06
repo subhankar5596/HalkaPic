@@ -4,6 +4,7 @@ import {
   PenTool,
   User,
   FileType,
+  FileText,
   FileDown,
   FileImage,
   Layers,
@@ -87,6 +88,22 @@ export const ALL_TOOLS: ToolsDirectoryItem[] = [
     badge: 'New',
     category: 'pdf',
   },
+  {
+    id: 'pdf-to-word',
+    name: 'PDF to Word Converter',
+    description: 'Convert PDF into editable Microsoft Word (.docx) documents with preserved text, headings, and formatting.',
+    icon: FileType,
+    badge: 'New',
+    category: 'pdf',
+  },
+  {
+    id: 'word-to-pdf',
+    name: 'Word to PDF Converter',
+    description: 'Convert Word documents (.docx & .doc) to high-fidelity PDF documents with preserved layout, tables, and typography.',
+    icon: FileText,
+    badge: 'New',
+    category: 'pdf',
+  },
 ];
 
 interface ToolsDirectoryProps {
@@ -118,11 +135,11 @@ export const ToolsDirectory: React.FC<ToolsDirectoryProps> = ({ onSelectTool, ac
               All HalkaPic Tools
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-0.5">
-              8 powerful, free in-browser utilities designed for speed, privacy, and zero server storage.
+              10 powerful, free in-browser utilities designed for speed, privacy, and zero server storage.
             </p>
           </div>
           <div className="text-xs text-slate-600 font-semibold bg-white px-3.5 py-1.5 rounded-full border border-slate-200 self-start sm:self-auto shadow-xs">
-            8 Fully Functional Tools
+            10 Fully Functional Tools
           </div>
         </div>
 
@@ -181,10 +198,10 @@ export const ToolsDirectory: React.FC<ToolsDirectoryProps> = ({ onSelectTool, ac
         <div className="space-y-4 pt-4 border-t border-slate-200/60">
           <div className="text-xs font-bold text-slate-500 uppercase tracking-wider flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-emerald-600"></span>
-            <span>PDF Document Tools (4 Tools)</span>
+            <span>PDF Document Tools (6 Tools)</span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {pdfTools.map((tool) => {
               const Icon = tool.icon;
               const isCurrentlySelected = activeToolId === tool.id;

@@ -6,7 +6,9 @@ export type ToolId =
   | 'compress-pdf'
   | 'pdf-to-jpg'
   | 'merge-pdf'
-  | 'split-pdf';
+  | 'split-pdf'
+  | 'pdf-to-word'
+  | 'word-to-pdf';
 
 export interface ToolMetadata {
   id: ToolId;
@@ -273,5 +275,67 @@ export const TOOLS_DATA: Record<ToolId, ToolMetadata> = {
       { q: 'Can I extract a single page from a PDF?', a: 'Yes, simply enter the page number (e.g. "4") and HalkaPic will export a single-page PDF containing just page 4.' }
     ],
     relatedToolIds: ['merge-pdf', 'compress-pdf', 'pdf-to-jpg']
+  },
+
+  'pdf-to-word': {
+    id: 'pdf-to-word',
+    path: '/pdf-to-word',
+    name: 'PDF to Word Converter',
+    badge: 'New',
+    category: 'pdf',
+    shortDesc: 'Convert PDF documents into editable Microsoft Word (.docx) files while preserving text, headings, and paragraphs.',
+    pageTitle: 'PDF to Word Converter Online Free - Convert PDF to DOCX | HalkaPic',
+    metaDescription: 'Convert PDF to editable Microsoft Word (.docx) online for free with HalkaPic. 100% private in-browser conversion, multi-page support, zero server uploads.',
+    h1: 'Convert PDF to Word Online Free',
+    tagline: 'Easily turn PDF documents into editable Microsoft Word (.docx) files with preserved text and structure.',
+    introText: 'Need to edit a contract, resume, or report locked in a PDF? HalkaPic extracts text, headings, alignments, and paragraphs from your PDF and compiles a genuine Microsoft Word (.docx) document right inside your browser.',
+    howToUse: [
+      { step: '1', title: 'Upload PDF', desc: 'Select or drag and drop your PDF document into the uploader.' },
+      { step: '2', title: 'Verify Details', desc: 'Check original filename, size, and detected page count.' },
+      { step: '3', title: 'Convert Document', desc: 'Click "Convert to Word" to parse layout and compile the DOCX.' },
+      { step: '4', title: 'Download DOCX', desc: 'Save your editable Microsoft Word file and open it in Word or Docs.' }
+    ],
+    keyFeatures: [
+      { title: 'Genuine DOCX Output', desc: 'Generates valid Office Open XML (.docx) files compatible with Microsoft Word and Google Docs.' },
+      { title: 'Text & Style Preservation', desc: 'Preserves headings, font weights, paragraphs, line spacing, and alignments.' },
+      { title: 'Multi-Page Documents', desc: 'Converts multi-page documents with clean section page breaks.' },
+      { title: '100% Private & In-Browser', desc: 'Your private documents never leave your computer or get uploaded to any server.' }
+    ],
+    faqs: [
+      { q: 'Can I edit the downloaded Word document in Microsoft Word?', a: 'Yes! The downloaded file is a genuine .docx file that opens and edits seamlessly in Microsoft Word, Google Docs, Apple Pages, and LibreOffice.' },
+      { q: 'Is my confidential PDF uploaded to a server?', a: 'No, HalkaPic parses and compiles the Word document 100% locally in your browser memory.' }
+    ],
+    relatedToolIds: ['word-to-pdf', 'pdf-to-jpg', 'compress-pdf', 'merge-pdf']
+  },
+
+  'word-to-pdf': {
+    id: 'word-to-pdf',
+    path: '/word-to-pdf',
+    name: 'Word to PDF Converter',
+    badge: 'New',
+    category: 'pdf',
+    shortDesc: 'Convert Microsoft Word documents (.docx and .doc) to high-quality PDF files with preserved layout and tables.',
+    pageTitle: 'Word to PDF Converter Online Free - Convert DOCX to PDF | HalkaPic',
+    metaDescription: 'Convert Word documents (.docx, .doc) to PDF online for free with HalkaPic. Preserves layout, tables, fonts, and styles. Fast, private, zero server uploads.',
+    h1: 'Convert Word to PDF Online Free',
+    tagline: 'Turn Microsoft Word documents (.docx & .doc) into high-fidelity PDF documents in seconds.',
+    introText: 'Need to lock in formatting for an official submission or email? HalkaPic converts Microsoft Word (.docx and .doc) files into standard, crisp, printable PDF documents directly in your browser without cloud dependencies.',
+    howToUse: [
+      { step: '1', title: 'Upload Word Document', desc: 'Drag and drop or select your .docx or .doc file.' },
+      { step: '2', title: 'Review File Info', desc: 'Inspect filename, format, and size.' },
+      { step: '3', title: 'Render & Convert', desc: 'Click "Convert to PDF" to render styles, tables, and pages.' },
+      { step: '4', title: 'Download PDF', desc: 'Download your clean, high-resolution PDF document.' }
+    ],
+    keyFeatures: [
+      { title: 'High-Fidelity Rendering', desc: 'Preserves tables, margins, font styles, colors, and embedded images.' },
+      { title: 'DOCX & Legacy DOC Support', desc: 'Supports modern .docx files as well as legacy .doc documents.' },
+      { title: 'Multi-Page Layout', desc: 'Renders multi-page documents with crisp A4 standard formatting.' },
+      { title: 'Zero Cloud Storage', desc: 'Converts entirely on your device with complete privacy.' }
+    ],
+    faqs: [
+      { q: 'Does Word to PDF preserve tables and images?', a: 'Yes! Modern .docx files preserve tables, borders, cell backgrounds, embedded images, and typography with high fidelity.' },
+      { q: 'Are my confidential Word files saved on any server?', a: 'No. HalkaPic executes the entire conversion process locally in your browser memory.' }
+    ],
+    relatedToolIds: ['pdf-to-word', 'compress-pdf', 'merge-pdf', 'image-to-pdf']
   }
 };

@@ -10,6 +10,8 @@ const PATH_TO_TOOL: Record<string, ToolId> = {
   '/pdf-to-jpg': 'pdf-to-jpg',
   '/merge-pdf': 'merge-pdf',
   '/split-pdf': 'split-pdf',
+  '/pdf-to-word': 'pdf-to-word',
+  '/word-to-pdf': 'word-to-pdf',
 };
 
 const TOOL_TO_PATH: Record<ToolId, string> = {
@@ -21,6 +23,8 @@ const TOOL_TO_PATH: Record<ToolId, string> = {
   'pdf-to-jpg': '/pdf-to-jpg',
   'merge-pdf': '/merge-pdf',
   'split-pdf': '/split-pdf',
+  'pdf-to-word': '/pdf-to-word',
+  'word-to-pdf': '/word-to-pdf',
 };
 
 export function getCurrentToolFromUrl(): ToolId {

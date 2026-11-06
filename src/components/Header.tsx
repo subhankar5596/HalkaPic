@@ -14,6 +14,7 @@ import {
   FileImage,
   Layers,
   Scissors,
+  FileType,
 } from 'lucide-react';
 import { ToolId, TOOLS_DATA } from '../types/tools';
 import { navigateToTool } from '../utils/router';
@@ -70,6 +71,8 @@ export const Header: React.FC<HeaderProps> = ({
     { id: 'pdf-to-jpg', label: 'PDF to JPG Converter', icon: FileImage },
     { id: 'merge-pdf', label: 'Merge PDF Files', icon: Layers },
     { id: 'split-pdf', label: 'Split & Extract PDF Pages', icon: Scissors },
+    { id: 'pdf-to-word', label: 'PDF to Word Converter', icon: FileType },
+    { id: 'word-to-pdf', label: 'Word to PDF Converter', icon: FileText },
   ];
 
   const currentToolData = TOOLS_DATA[currentToolId] || TOOLS_DATA['compress-photo'];
@@ -182,7 +185,7 @@ export const Header: React.FC<HeaderProps> = ({
               <FileText className="w-4 h-4 text-emerald-600" />
               <span>PDF Tools</span>
               <span className="text-[9px] font-extrabold bg-emerald-100 text-emerald-800 px-1 py-0.2 rounded uppercase">
-                4
+                6
               </span>
               <ChevronDown className={`w-3.5 h-3.5 transition-transform ${pdfDropdownOpen ? 'rotate-180' : ''}`} />
             </button>

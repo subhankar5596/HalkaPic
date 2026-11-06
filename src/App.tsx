@@ -50,6 +50,12 @@ const MergePdf = lazy(() =>
 const SplitPdf = lazy(() =>
   import('./components/SplitPdf').then((m) => ({ default: m.SplitPdf }))
 );
+const PdfToWord = lazy(() =>
+  import('./components/PdfToWord').then((m) => ({ default: m.PdfToWord }))
+);
+const WordToPdf = lazy(() =>
+  import('./components/WordToPdf').then((m) => ({ default: m.WordToPdf }))
+);
 
 export const App: React.FC = () => {
   // Navigation / Tool Routing State
@@ -275,6 +281,8 @@ export const App: React.FC = () => {
                 {currentTool === 'pdf-to-jpg' && <PdfToJpg />}
                 {currentTool === 'merge-pdf' && <MergePdf />}
                 {currentTool === 'split-pdf' && <SplitPdf />}
+                {currentTool === 'pdf-to-word' && <PdfToWord />}
+                {currentTool === 'word-to-pdf' && <WordToPdf />}
               </Suspense>
             )}
           </ToolPageLayout>

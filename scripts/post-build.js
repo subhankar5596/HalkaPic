@@ -107,6 +107,8 @@ function generateToolShellHtml(tool) {
         <a href="/pdf-to-jpg" class="px-3 py-1.5 rounded-xl hover:text-blue-600 hover:bg-slate-50 transition-colors ${tool.id === 'pdf-to-jpg' ? 'font-bold text-blue-700 bg-blue-50' : ''}">PDF to JPG</a>
         <a href="/merge-pdf" class="px-3 py-1.5 rounded-xl hover:text-blue-600 hover:bg-slate-50 transition-colors ${tool.id === 'merge-pdf' ? 'font-bold text-blue-700 bg-blue-50' : ''}">Merge PDF</a>
         <a href="/split-pdf" class="px-3 py-1.5 rounded-xl hover:text-blue-600 hover:bg-slate-50 transition-colors ${tool.id === 'split-pdf' ? 'font-bold text-blue-700 bg-blue-50' : ''}">Split PDF</a>
+        <a href="/pdf-to-word" class="px-3 py-1.5 rounded-xl hover:text-blue-600 hover:bg-slate-50 transition-colors ${tool.id === 'pdf-to-word' ? 'font-bold text-blue-700 bg-blue-50' : ''}">PDF to Word</a>
+        <a href="/word-to-pdf" class="px-3 py-1.5 rounded-xl hover:text-blue-600 hover:bg-slate-50 transition-colors ${tool.id === 'word-to-pdf' ? 'font-bold text-blue-700 bg-blue-50' : ''}">Word to PDF</a>
       </nav>
     </div>
   </header>

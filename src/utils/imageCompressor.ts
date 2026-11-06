@@ -273,8 +273,9 @@ export async function compressImage(
       }
 
       // Final fine-tune if candidate is still under target
-      if (bestUnderTarget && bestUnderTarget.size < targetBytes * 0.75 && attempts < maxAttempts) {
-        await testCandidate(bestUnderTarget.scale, Math.min(0.92, bestUnderTarget.quality + 0.15));
+      const candidateUnder = bestUnderTarget as Candidate | null;
+      if (candidateUnder && candidateUnder.size < targetBytes * 0.75 && attempts < maxAttempts) {
+        await testCandidate(candidateUnder.scale, Math.min(0.92, candidateUnder.quality + 0.15));
       }
     }
   }
