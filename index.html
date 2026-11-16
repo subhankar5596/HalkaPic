@@ -5,10 +5,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
 
+    <!-- Google Search Console Verification -->
     <meta name="google-site-verification" content="OBk_iMsZeO44wHNHEuer1XqZnWOAWIVRZO9xKrK3gRA" />
 
     <title>HalkaPic - Compress Photo MB to KB Online Free & Image to PDF</title>
 
+    <!-- SEO Meta Tags -->
     <meta name="description" content="HalkaPic is a free, fast and private online tool to compress photos from MB to KB (20KB, 50KB, 100KB) and convert images to PDF. Works on mobile and desktop without server uploads." />
     <meta name="keywords" content="halkapic, halka pic, photo MB to KB, image compressor, compress image to 100KB, compress image to 50KB, compress image to 20KB, JPG compressor, image to PDF, free image compressor" />
     <meta name="author" content="HalkaPic" />
@@ -16,6 +18,9 @@
     <meta name="theme-color" content="#2563eb" />
 
     <link rel="canonical" href="https://halka-pic.vercel.app/" />
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4877351388361194" crossorigin="anonymous"></script>
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -37,11 +42,12 @@
     <link rel="apple-touch-icon" href="/icon.svg" />
     <link rel="manifest" href="/site.webmanifest" />
 
-    <!-- Typography (Non-render-blocking) -->
+    <!-- Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" media="print" onload="this.media='all'" />
+
     <noscript>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" />
     </noscript>
@@ -89,30 +95,14 @@
         }
     </script>
 
-    <!-- Non-critical Third-party Scripts: Load AdSense on real user interaction (bypassed on localhost/tests) -->
-    <script>
-        (function() {
-            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') return;
-            var loaded = false;
-            function initAds() {
-                if (loaded) return;
-                loaded = true;
-                var script = document.createElement('script');
-                script.async = true;
-                script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4877351388361194';
-                script.crossOrigin = 'anonymous';
-                document.head.appendChild(script);
-            }
-            ['touchstart', 'scroll', 'pointerdown', 'keydown'].forEach(function(evt) {
-                window.addEventListener(evt, initAds, { once: true, passive: true });
-            });
-        })();
-    </script>
 </head>
 
 <body class="bg-slate-50 text-slate-900 antialiased font-sans selection:bg-blue-100 selection:text-blue-900 min-h-screen flex flex-col">
+
     <div id="root"></div>
+
     <script type="module" src="/src/main.tsx"></script>
+
 </body>
 
 </html>
